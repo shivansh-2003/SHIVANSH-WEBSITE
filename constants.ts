@@ -390,7 +390,7 @@ export const HACKATHONS = [
       "Achievement: Participated & Showcased",
       "Project: Fraud Detection System"
     ],
-    certificate: "/assets/certificate_Shivansh Mahajan.jpg"
+    certificate: "/assets/certificate_Shivansh%20Mahajan.jpg"
   },
   { 
     name: "Hackout Hackathon", 

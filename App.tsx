@@ -12,6 +12,7 @@ import {
   Linkedin, 
   Mail, 
   Download, 
+  Calendar,
   ChevronDown, 
   ExternalLink, 
   Code, 
@@ -330,7 +331,7 @@ const App: React.FC = () => {
                 I'm always looking for new challenges in Generative AI and Agents. Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 w-full px-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 w-full px-2 flex-wrap">
                  <a 
                    href={`mailto:${SOCIALS.email}`}
                    className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg hover:bg-neonCyan hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300 w-full sm:w-auto justify-center"
@@ -338,6 +339,15 @@ const App: React.FC = () => {
                    <Mail size={18} className="sm:w-5 sm:h-5" />
                    Say Hello
                  </a>
+                <a 
+                  href="https://calendly.com/shivansh-m2003"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-neonPurple/20 border border-neonPurple/50 text-white font-bold text-base sm:text-lg hover:bg-neonPurple/30 hover:border-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full sm:w-auto justify-center"
+                >
+                  <Calendar size={18} className="sm:w-5 sm:h-5" />
+                  Schedule a meet
+                </a>
                 <a 
                   href="https://drive.google.com/file/d/1rq7_MpBlIICDnq17Gkhbb6rRDfG8DM-y/view?usp=sharing"
                   target="_blank"
