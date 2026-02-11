@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Scene } from './components/Scene';
 import { Section, GlassCard, CustomButton, Modal } from './components/UI';
+import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { CustomCursor } from './components/CustomCursor';
+import { Hero } from './components/Hero';
 import { PROJECTS, EXPERIENCE, EDUCATION, SKILLS, SOCIALS, HACKATHONS } from './constants';
 import { 
   Github, 
   Linkedin, 
   Mail, 
   Download, 
+  Calendar,
   ChevronDown, 
   ExternalLink, 
   Code, 
@@ -34,14 +37,28 @@ const App: React.FC = () => {
 
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
   const handleOpenModal = (item: any) => {
-    setSelectedItem(item);
-    setIsModalOpen(true);
+    // Check if it's a project (has title and category/tech)
+    const isProject = item.title !== undefined && (item.category !== undefined || item.tech !== undefined);
+    
+    if (isProject) {
+      setSelectedProject(item);
+      setIsProjectModalOpen(true);
+    } else {
+      setSelectedItem(item);
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleCloseProjectModal = () => {
+    setIsProjectModalOpen(false);
   };
 
   // Smooth Scroll to section
@@ -56,6 +73,7 @@ const App: React.FC = () => {
     <div className="relative w-full bg-[#050505] text-white font-sans selection:bg-neonCyan selection:text-black">
       <CustomCursor />
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} data={selectedItem} />
+      <ProjectDetailModal isOpen={isProjectModalOpen} onClose={handleCloseProjectModal} project={selectedProject} />
       
       {/* 3D Background Scene */}
       <Scene scrollProgress={0} />
@@ -100,64 +118,8 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <Section id="hero">
-        <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl items-center gap-12 relative">
-          
-          {/* Text Content - Order 1 (Left) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="order-1 flex flex-col justify-center z-20 max-w-2xl lg:pl-8"
-          >
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex items-center gap-3 mb-4"
-            >
-              <span className="px-3 py-1 rounded-full bg-neonCyan/10 text-neonCyan border border-neonCyan/20 text-xs font-display tracking-widest uppercase">
-                Available for work
-              </span>
-              <span className="h-px w-12 bg-white/20"></span>
-            </motion.div>
-
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-[0.95] tracking-tighter mb-6">
-              SHIVANSH <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">MAHAJAN</span>
-            </h1>
-
-            <h2 className="text-lg md:text-xl font-sans font-light text-gray-400 mb-8 max-w-lg">
-              Innovative <span className="text-neonCyan font-medium">AI/ML Engineer</span> specializing in Generative AI, RAG pipelines, and production-grade autonomous agents.
-            </h2>
-
-            <div className="flex flex-wrap gap-4">
-              <CustomButton onClick={() => scrollTo('projects')}>
-                View Work
-              </CustomButton>
-              <CustomButton variant="secondary" onClick={() => scrollTo('contact')}>
-                Contact Me
-              </CustomButton>
-            </div>
-          </motion.div>
-
-          {/* Placeholder for 3D Scene - Order 2 (Right) */}
-          <div className="order-2 h-full flex items-center justify-center pointer-events-none relative z-0">
-             {/* The 3D Blob is positioned in Scene.tsx to align here */}
-          </div>
-        </div>
-
-        <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2 cursor-pointer"
-          onClick={() => scrollTo('experience')}
-        >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <ChevronDown />
-        </motion.div>
-      </Section>
+      {/* HERO SECTION - New Parallax Hero */}
+      <Hero scrollTo={scrollTo} />
 
       {/* EXPERIENCE SECTION */}
       <Section id="experience">
@@ -360,30 +322,39 @@ const App: React.FC = () => {
              initial={{ opacity: 0, scale: 0.9 }}
              whileInView={{ opacity: 1, scale: 1 }}
              viewport={{ once: true }}
-             className="glass-panel p-12 rounded-3xl border-neonCyan/30 shadow-[0_0_100px_rgba(0,243,255,0.1)]"
+             className="glass-panel p-6 sm:p-8 md:p-12 rounded-3xl border-neonCyan/30 shadow-[0_0_100px_rgba(0,243,255,0.1)]"
            >
-              <h2 className="text-4xl md:text-6xl font-display font-black mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6 leading-tight">
                 READY TO <span className="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan to-neonPurple">COLLABORATE?</span>
               </h2>
-              <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
+              <p className="text-gray-300 text-base sm:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto px-2">
                 I'm always looking for new challenges in Generative AI and Agents. Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
               
-              <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-12">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 w-full px-2 flex-wrap">
                  <a 
                    href={`mailto:${SOCIALS.email}`}
-                   className="flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black font-bold text-lg hover:bg-neonCyan hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300"
+                   className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg hover:bg-neonCyan hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300 w-full sm:w-auto justify-center"
                  >
-                   <Mail size={20} />
+                   <Mail size={18} className="sm:w-5 sm:h-5" />
                    Say Hello
                  </a>
+                <a 
+                  href="https://calendly.com/shivansh-m2003"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-neonPurple/20 border border-neonPurple/50 text-white font-bold text-base sm:text-lg hover:bg-neonPurple/30 hover:border-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full sm:w-auto justify-center"
+                >
+                  <Calendar size={18} className="sm:w-5 sm:h-5" />
+                  Schedule a meet
+                </a>
                 <a 
                   href="https://drive.google.com/file/d/1rq7_MpBlIICDnq17Gkhbb6rRDfG8DM-y/view?usp=sharing"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-3 px-8 py-4 rounded-full bg-black border border-white/20 text-white font-bold text-lg hover:border-neonPurple hover:text-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300"
+                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-black border border-white/20 text-white font-bold text-base sm:text-lg hover:border-neonPurple hover:text-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full sm:w-auto justify-center"
                 >
-                  <Download size={20} />
+                  <Download size={18} className="sm:w-5 sm:h-5" />
                   Download CV
                 </a>
               </div>

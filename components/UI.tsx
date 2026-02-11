@@ -119,7 +119,17 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
   const title = data.title || data.name || data.company;
   const subtitle = data.category || data.org || data.role;
   const description = data.description || data.project || data.focus; // fallback if no details
-  
+
+  // Build certificate URL with base path and encoding for Vercel/production
+  const certUrlEncoded = (data.certificate && (isHackathon || isExperience))
+    ? (() => {
+        const c = data.certificate;
+        const base = (typeof import.meta !== 'undefined' && (import.meta as { env?: { BASE_URL?: string } }).env?.BASE_URL) || '/';
+        const path = c.startsWith('http') ? c : `${base}${c.replace(/^\//, '')}`;
+        return path.includes('%') ? path : encodeURI(path);
+      })()
+    : null;
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -222,7 +232,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                   )}
 
                   {/* Certificate Section for Hackathons and Experience */}
-                  {(isHackathon || isExperience) && data.certificate && (
+                  {(isHackathon || isExperience) && certUrlEncoded && (
                     <div className="mt-6">
                       <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">Certificate</h3>
                       {data.certificate.endsWith('.pdf') ? (
@@ -239,7 +249,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                               <p className="text-gray-400 text-sm">Click button to view PDF</p>
                             </div>
                             <a 
-                              href={data.certificate} 
+                              href={certUrlEncoded} 
                               target="_blank" 
                               rel="noopener noreferrer"
                               className="px-4 py-2 bg-neonCyan/20 hover:bg-neonCyan/30 text-neonCyan border border-neonCyan/30 rounded-lg font-bold text-sm transition-all duration-300"
@@ -252,10 +262,10 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                         // Image Certificate
                         <div className="relative group">
                           <img 
-                            src={data.certificate} 
+                            src={certUrlEncoded} 
                             alt={`${data.name || data.company} Certificate`}
                             className="w-full rounded-lg border border-white/10 cursor-pointer hover:border-neonCyan/50 transition-all duration-300"
-                            onClick={() => window.open(data.certificate, '_blank')}
+                            onClick={() => window.open(certUrlEncoded, '_blank')}
                           />
                           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                             <span className="text-white font-bold text-lg">Click to View Full Size</span>
@@ -267,9 +277,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                 </div>
 
                 <div className="mt-8 pt-8 border-t border-white/10 flex justify-between items-center">
-                   {(isHackathon || isExperience) && data.certificate && (
+                   {(isHackathon || isExperience) && certUrlEncoded && (
                      <a 
-                       href={data.certificate} 
+                       href={certUrlEncoded} 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="px-4 py-2 bg-neonPurple/20 hover:bg-neonPurple/30 text-neonPurple border border-neonPurple/30 rounded-lg font-bold text-sm transition-all duration-300 flex items-center gap-2"
