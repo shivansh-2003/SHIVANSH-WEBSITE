@@ -166,6 +166,7 @@ export const PROJECTS = [
   {
     title: "Voice-Activated Portfolio Assistant",
     category: "Generative AI",
+    tagline: "Real-time voice-activated AI interview assistant",
     description: "Real-time voice-activated AI interview assistant using LiveKit's agent framework for technical interview preparation.",
     details: [
       "Real-time voice-activated AI interview assistant using LiveKit's agent framework for technical interview preparation",
@@ -181,11 +182,26 @@ export const PROJECTS = [
     tech: ["OpenAI GPT-4o", "Deepgram", "Silero VAD", "Pinecone", "LiveKit"],
     color: "#00f0ff",
     github: "https://github.com/shivansh-2003/Candidate-ai",
-    demo: "#"
+    demo: "#",
+    metrics: [
+      { label: "Latency", value: "< 2 seconds" },
+      { label: "Status", value: "Production Ready" }
+    ],
+    insights: [
+      "Real-time voice processing requires careful optimization of VAD thresholds to balance responsiveness and accuracy",
+      "RAG integration significantly improves context awareness compared to pure LLM responses",
+      "Hands-free operation opens up new use cases like commuting and accessibility"
+    ],
+    learnings: [
+      "Mastered LiveKit's agent framework for real-time audio processing",
+      "Learned to optimize VAD parameters for different speaking styles",
+      "Gained experience with production Docker deployments and error handling"
+    ]
   },
   {
     title: "Fraud Detection System",
     category: "Deep Learning",
+    tagline: "ML-based fraud detection API for financial transactions",
     description: "ML-based fraud detection API predicting fraudulent financial transactions using deep neural networks.",
     details: [
       "ML-based fraud detection API predicting fraudulent financial transactions using deep neural networks",
@@ -200,11 +216,27 @@ export const PROJECTS = [
     tech: ["Python", "Flask", "Docker", "TensorFlow", "SMOTE"],
     color: "#ff0055",
     github: "https://github.com/shivansh-2003/Fraud_detection",
-    demo: "#"
+    demo: "#",
+    metrics: [
+      { label: "Latency", value: "8-11ms" },
+      { label: "Throughput", value: "100 req/s" },
+      { label: "Status", value: "Production Ready" }
+    ],
+    insights: [
+      "SMOTE was crucial for handling the severe class imbalance in fraud detection datasets",
+      "Feature engineering (transaction frequency, distance) significantly improved model performance",
+      "Production deployment requires careful consideration of latency vs accuracy trade-offs"
+    ],
+    learnings: [
+      "Deep understanding of handling imbalanced datasets in production ML systems",
+      "Learned to optimize neural network architectures for low-latency inference",
+      "Gained experience with production Flask APIs and Gunicorn deployment"
+    ]
   },
   {
     title: "LinkedIn Blog Agent",
     category: "AI Agents",
+    tagline: "Transform any content into viral LinkedIn posts",
     description: "AI assistant transforming multi-format content into engaging LinkedIn posts using vision and language models.",
     details: [
       "AI-powered assistant transforming multi-format content into engaging LinkedIn posts using vision and language models",
@@ -220,11 +252,26 @@ export const PROJECTS = [
     tech: ["Gemini Flash 1.5", "Claude Opus", "LangGraph", "LangChain"],
     color: "#0077b5",
     github: "https://github.com/shivansh-2003/Linkedin_blog_agent",
-    demo: "#"
+    demo: "#",
+    metrics: [
+      { label: "Formats Supported", value: "20+ languages" },
+      { label: "Status", value: "Live Demo" }
+    ],
+    insights: [
+      "Multi-model approach (Gemini for vision, Claude for text) provides superior results compared to single-model solutions",
+      "Human-in-the-loop refinement dramatically improves user satisfaction and output quality",
+      "LinkedIn-specific optimization (hooks, hashtags, CTAs) significantly increases engagement rates"
+    ],
+    learnings: [
+      "Mastered LangGraph for building complex multi-agent workflows",
+      "Learned to integrate multiple AI models (Gemini, Claude) for specialized tasks",
+      "Gained deep understanding of content optimization for social media platforms"
+    ]
   },
   {
     title: "Interactive Storytelling API",
     category: "Backend API",
+    tagline: "AI-powered story creation with advanced character development",
     description: "Dynamic AI-powered story creation backend with advanced character development and professional exports.",
     details: [
       "Dynamic AI-powered story creation backend with advanced character development and professional exports",
@@ -239,11 +286,27 @@ export const PROJECTS = [
     tech: ["FastAPI", "Groq API", "gTTS", "FPDF", "Pydantic"],
     color: "#a855f7",
     github: "https://github.com/shivansh-2003/Story_Assistant",
-    demo: "#"
+    demo: "#",
+    metrics: [
+      { label: "Test Coverage", value: "100% (18/18)" },
+      { label: "Response Time", value: "8ms avg" },
+      { label: "Languages", value: "10+ supported" }
+    ],
+    insights: [
+      "Character relationship mapping dramatically improves narrative consistency",
+      "Dual-mode generation (user-guided vs AI-auto) caters to different user preferences",
+      "Real-time editing with natural language instructions provides intuitive user experience"
+    ],
+    learnings: [
+      "Achieved 100% test coverage using pytest and FastAPI testing best practices",
+      "Learned to optimize API response times for real-time applications",
+      "Mastered multi-format export generation (PDF, audio) with proper encoding"
+    ]
   },
   {
     title: "Workflowz.ai",
     category: "Enterprise AI Platform",
+    tagline: "Intelligent multi-tenant project execution platform",
     description: "Intelligent multi-tenant project execution platform with AI-driven task generation and constraint-aware team assignment.",
     details: [
       "Multi-tenant SaaS platform with secure RBAC and complete organizational isolation",
@@ -259,11 +322,28 @@ export const PROJECTS = [
     tech: ["LangGraph", "Multi-agent AI", "FastAPI", "PostgreSQL", "JWT Auth", "RBAC"],
     color: "#8b5cf6",
     github: "https://github.com/shivansh-2003/Workflowz.ai",
-    demo: "#"
+    demo: "#",
+    metrics: [
+      { label: "AI Agents", value: "7-agent workflow" },
+      { label: "Status", value: "Open Source" }
+    ],
+    insights: [
+      "7-agent workflow provides superior task decomposition compared to single-agent approaches",
+      "Explainable AI assignments build trust and improve team adoption",
+      "Capability-aware planning prevents unrealistic assignments and improves project success rates",
+      "Multi-tenant architecture with RBAC ensures enterprise-grade security"
+    ],
+    learnings: [
+      "Mastered complex multi-agent system design with LangGraph",
+      "Learned to implement secure multi-tenant architectures with PostgreSQL",
+      "Gained experience building enterprise SaaS platforms with proper RBAC",
+      "Understood the importance of explainability in AI-driven systems"
+    ]
   },
   {
     title: "Data Analyst AI Assistant",
     category: "Data Analysis",
+    tagline: "Intelligent data analysis with natural language Q&A",
     description: "Intelligent data analysis platform with interactive visualizations and natural language Q&A.",
     details: [
       "Intelligent data analysis platform with interactive visualizations and natural language Q&A interface",
@@ -278,7 +358,24 @@ export const PROJECTS = [
     tech: ["Streamlit", "LangChain", "Plotly", "Pandas", "GPT-4o"],
     color: "#eab308",
     github: "https://github.com/shivansh-2003/Data-Assistant",
-    demo: "https://storyassistant-vgne3sgd8fbz6tcdq4zwrr.streamlit.app/"
+    demo: "https://storyassistant-vgne3sgd8fbz6tcdq4zwrr.streamlit.app/",
+    metrics: [
+      { label: "Chart Types", value: "20+ Plotly charts" },
+      { label: "Memory", value: "20 messages" },
+      { label: "Status", value: "Live Demo" }
+    ],
+    insights: [
+      "Natural language interface dramatically reduces barrier to entry for non-technical users",
+      "Auto-generated visualizations based on data types provide immediate insights",
+      "Conversation memory enables contextual follow-up questions",
+      "Dual architecture (LangChain/LangGraph) allows comparison of different agent patterns"
+    ],
+    learnings: [
+      "Mastered building conversational AI interfaces with LangChain",
+      "Learned to create dynamic visualization systems with Plotly",
+      "Gained experience with Streamlit for rapid prototyping and deployment",
+      "Understood the importance of memory management in conversational AI"
+    ]
   }
 ];
 

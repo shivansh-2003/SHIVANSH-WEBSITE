@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Scene } from './components/Scene';
 import { Section, GlassCard, CustomButton, Modal } from './components/UI';
+import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { CustomCursor } from './components/CustomCursor';
 import { Hero } from './components/Hero';
 import { PROJECTS, EXPERIENCE, EDUCATION, SKILLS, SOCIALS, HACKATHONS } from './constants';
@@ -35,14 +36,28 @@ const App: React.FC = () => {
 
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
   const handleOpenModal = (item: any) => {
-    setSelectedItem(item);
-    setIsModalOpen(true);
+    // Check if it's a project (has title and category/tech)
+    const isProject = item.title !== undefined && (item.category !== undefined || item.tech !== undefined);
+    
+    if (isProject) {
+      setSelectedProject(item);
+      setIsProjectModalOpen(true);
+    } else {
+      setSelectedItem(item);
+      setIsModalOpen(true);
+    }
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const handleCloseProjectModal = () => {
+    setIsProjectModalOpen(false);
   };
 
   // Smooth Scroll to section
@@ -57,6 +72,7 @@ const App: React.FC = () => {
     <div className="relative w-full bg-[#050505] text-white font-sans selection:bg-neonCyan selection:text-black">
       <CustomCursor />
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} data={selectedItem} />
+      <ProjectDetailModal isOpen={isProjectModalOpen} onClose={handleCloseProjectModal} project={selectedProject} />
       
       {/* 3D Background Scene */}
       <Scene scrollProgress={0} />
