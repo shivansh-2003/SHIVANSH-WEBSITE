@@ -278,7 +278,7 @@ export const PROJECTS = [
     tech: ["Streamlit", "LangChain", "Plotly", "Pandas", "GPT-4o"],
     color: "#eab308",
     github: "https://github.com/shivansh-2003/Data-Assistant",
-    demo: "#"
+    demo: "https://storyassistant-vgne3sgd8fbz6tcdq4zwrr.streamlit.app/"
   }
 ];
 

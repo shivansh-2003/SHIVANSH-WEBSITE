@@ -24,4 +24,7 @@ dist-ssr
 *.sw?
 
 # Old assets folder (moved to public/assets/)
-assets/
+assests/
+
+# Original photo file (copied to public/assets/)
+IMG_4997_polarr copy.png
