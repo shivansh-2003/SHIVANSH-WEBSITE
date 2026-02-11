@@ -96,7 +96,7 @@ const App: React.FC = () => {
         <div className="flex gap-4">
              <a href={`mailto:${SOCIALS.email}`} className="hover:text-neonCyan transition-colors"><Mail size={20}/></a>
              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-neonCyan transition-colors"><Linkedin size={20}/></a>
-             <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-neonCyan transition-colors"><Github size={20}/></a>
+             <a href="https://github.com/shivansh-2003" target="_blank" rel="noreferrer" className="hover:text-neonCyan transition-colors"><Github size={20}/></a>
         </div>
       </nav>
 
@@ -324,7 +324,7 @@ const App: React.FC = () => {
              viewport={{ once: true }}
              className="mb-16 text-center"
            >
-             <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">Hackathon <span className="text-gradient">Victories</span></h2>
+             <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">Hackathon <span className="text-gradient">Participation</span></h2>
              <p className="text-gray-400 max-w-2xl mx-auto">Building under pressure, delivering innovation.</p>
            </motion.div>
 
@@ -377,13 +377,15 @@ const App: React.FC = () => {
                    <Mail size={20} />
                    Say Hello
                  </a>
-                 <a 
-                   href="#"
-                   className="flex items-center gap-3 px-8 py-4 rounded-full bg-black border border-white/20 text-white font-bold text-lg hover:border-neonPurple hover:text-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300"
-                 >
-                   <Download size={20} />
-                   Download CV
-                 </a>
+                <a 
+                  href="https://drive.google.com/file/d/1rq7_MpBlIICDnq17Gkhbb6rRDfG8DM-y/view?usp=sharing"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 px-8 py-4 rounded-full bg-black border border-white/20 text-white font-bold text-lg hover:border-neonPurple hover:text-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300"
+                >
+                  <Download size={20} />
+                  Download CV
+                </a>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-500 border-t border-white/10 pt-8">
@@ -393,9 +395,9 @@ const App: React.FC = () => {
                  <div className="flex items-center justify-center gap-2">
                     <Phone size={16} /> {SOCIALS.phone}
                  </div>
-                 <div className="flex items-center justify-center gap-2">
-                    <Github size={16} /> @shivansh-m
-                 </div>
+                <div className="flex items-center justify-center gap-2">
+                   <Github size={16} /> @shivansh-2003
+                </div>
               </div>
            </motion.div>
         </div>

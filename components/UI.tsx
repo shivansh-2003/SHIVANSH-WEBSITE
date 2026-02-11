@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, Calendar, MapPin, Trophy } from 'lucide-react';
+import { ArrowRight, X, Calendar, MapPin, Trophy, ExternalLink } from 'lucide-react';
 
 interface SectionProps {
   children: React.ReactNode;
@@ -113,10 +113,12 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
   if (!data) return null;
 
   // Determine content type based on data properties
-  const isProject = data.tech !== undefined;
-  const title = data.title || data.name;
-  const subtitle = data.category || data.org;
-  const description = data.description || data.project; // fallback if no details
+  const isProject = data.title !== undefined && data.category !== undefined;
+  const isExperience = data.company !== undefined;
+  const isHackathon = data.name !== undefined && data.org !== undefined;
+  const title = data.title || data.name || data.company;
+  const subtitle = data.category || data.org || data.role;
+  const description = data.description || data.project || data.focus; // fallback if no details
   
   return (
     <AnimatePresence>
@@ -179,6 +181,15 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                              </li>
                           ))}
                        </ul>
+                    ) : data.achievements && data.achievements.length > 0 ? (
+                       <ul className="space-y-3">
+                          {data.achievements.map((item: string, i: number) => (
+                             <li key={i} className="flex items-start gap-3 text-gray-300 text-base leading-relaxed">
+                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-neonCyan/70 shrink-0"></span>
+                                <span>{item}</span>
+                             </li>
+                          ))}
+                       </ul>
                     ) : (
                        <p className="text-gray-300 leading-relaxed text-lg">
                          {description}
@@ -186,7 +197,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                     )}
                     
                     {/* Additional Hackathon Details if available AND no details array used */}
-                    {!isProject && data.result && !data.details && (
+                    {isHackathon && data.result && !data.details && (
                        <div className="mt-4 p-4 bg-white/5 rounded-lg border border-white/10 flex items-center gap-3">
                           <Trophy className="text-yellow-400" size={24} />
                           <div>
@@ -197,7 +208,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                     )}
                   </div>
 
-                  {isProject && data.tech && (
+                  {(isProject || isExperience) && data.tech && (
                     <div>
                       <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">Technologies</h3>
                       <div className="flex flex-wrap gap-2">
@@ -209,10 +220,65 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
                       </div>
                     </div>
                   )}
+
+                  {/* Certificate Section for Hackathons and Experience */}
+                  {(isHackathon || isExperience) && data.certificate && (
+                    <div className="mt-6">
+                      <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3">Certificate</h3>
+                      {data.certificate.endsWith('.pdf') ? (
+                        // PDF Certificate
+                        <div className="p-6 bg-white/5 rounded-lg border border-white/10 hover:border-neonCyan/50 transition-all duration-300">
+                          <div className="flex items-center gap-4">
+                            <div className="p-3 bg-neonPurple/20 rounded-lg">
+                              <svg className="w-8 h-8 text-neonPurple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                              </svg>
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-white font-bold">Experience Certificate</p>
+                              <p className="text-gray-400 text-sm">Click button to view PDF</p>
+                            </div>
+                            <a 
+                              href={data.certificate} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="px-4 py-2 bg-neonCyan/20 hover:bg-neonCyan/30 text-neonCyan border border-neonCyan/30 rounded-lg font-bold text-sm transition-all duration-300"
+                            >
+                              View PDF
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
+                        // Image Certificate
+                        <div className="relative group">
+                          <img 
+                            src={data.certificate} 
+                            alt={`${data.name || data.company} Certificate`}
+                            className="w-full rounded-lg border border-white/10 cursor-pointer hover:border-neonCyan/50 transition-all duration-300"
+                            onClick={() => window.open(data.certificate, '_blank')}
+                          />
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+                            <span className="text-white font-bold text-lg">Click to View Full Size</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-white/10 flex justify-end">
-                   <CustomButton onClick={onClose} variant="secondary" className="text-sm">
+                <div className="mt-8 pt-8 border-t border-white/10 flex justify-between items-center">
+                   {(isHackathon || isExperience) && data.certificate && (
+                     <a 
+                       href={data.certificate} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="px-4 py-2 bg-neonPurple/20 hover:bg-neonPurple/30 text-neonPurple border border-neonPurple/30 rounded-lg font-bold text-sm transition-all duration-300 flex items-center gap-2"
+                     >
+                       <ExternalLink size={16} />
+                       Open Certificate
+                     </a>
+                   )}
+                   <CustomButton onClick={onClose} variant="secondary" className="text-sm ml-auto">
                       Close Details
                    </CustomButton>
                 </div>

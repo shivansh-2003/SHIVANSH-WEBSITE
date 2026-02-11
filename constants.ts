@@ -27,29 +27,29 @@ export const SOCIALS = {
 
 export const SKILLS = [
   {
-    category: "Generative AI & LLM Frameworks",
+    category: "Generative AI",
     icon: Brain,
-    items: ["LangChain", "LangGraph", "Agno", "Crew AI", "Hugging Face", "Google ADK", "LlamaIndex", "Guardrails", "MCP Protocol", "A2A Protocol"]
+    items: ["LangChain", "LangGraph", "Agno", "Crew AI", "Hugging Face", "Google ADK", "LlamaIndex", "Guardrails"]
   },
   {
     category: "Cloud & Databases",
     icon: Database,
-    items: ["AWS (EC2, S3, SageMaker, Bedrock, Lambda)", "Supabase", "MongoDB", "Redis", "Pinecone", "Chroma DB", "Snowflake"]
+    items: ["Supabase", "Mongo DB", "Redis", "Pinecone", "Chroma DB", "AWS (EC2, S3, Sagemaker, Bedrock, Lambda)"]
   },
   {
     category: "AI/ML Technologies",
     icon: Cpu,
-    items: ["Generative AI", "NLP", "Deep Learning", "LLM Fine Tuning", "RAG Techniques", "Machine Learning", "Data Analysis", "AI Agents", "LLM Monitoring", "CI/CD"]
+    items: ["Generative AI", "Natural Language Processing", "Deep Learning", "LLM Fine Tuning", "RAG Techniques", "MCP Protocol", "A2A Protocol", "Machine Learning", "Data Analysis", "AI Agents", "LLM Observability", "CI/CD"]
   },
   {
     category: "Python Libraries & Frameworks",
     icon: Code2,
-    items: ["Pandas", "Matplotlib", "Seaborn", "Scikit-learn", "TensorFlow", "PyTorch", "FastAPI", "NLTK", "Spacy", "Beautiful Soup", "Selenium", "FastMCP", "Graphiti", "Crawl4AI", "Plotly", "Streamlit", "Pydantic"]
+    items: ["Pandas", "Matplotlib", "Seaborn", "Scikit-learn", "TensorFlow", "PyTorch", "FastAPI", "NLTK", "Spacy", "Beautiful Soup", "Selenium", "Fast MCP", "Graphiti", "Crawl4AI", "Plotly", "Streamlit", "Pydantic", "Django"]
   },
   {
     category: "Tools & Software",
     icon: Layout,
-    items: ["Tableau", "GitHub", "Docker", "MLFlow", "GitHub Actions", "LangFlow", "LangSmith", "LiveKit", "Streamlit"]
+    items: ["Tableau", "GitHub", "Docker", "ML Flow", "GitHub Actions", "LangFlow", "LangSmith", "Livekit", "LangFuse"]
   }
 ];
 
@@ -100,32 +100,41 @@ export const TECH_STACK_LOGOS = [
 
 export const EXPERIENCE = [
   {
+    company: "Bajaj Finserv Direct Limited",
+    role: "Gen-AI Intern",
+    period: "December 2025 – June 2026",
+    focus: "Analytics dashboard, AI performance metrics, legacy codebase refactoring",
+    achievements: [
+      "Collaborated with Tech Lead to design and implement a centralized analytics dashboard for 3 major products, consolidating and visualizing 50+ AI-driven performance metrics for real-time insights and decision-making",
+      "Refactored legacy codebase to improve modularity, maintainability, and scalability; identified and resolved 30+ critical bugs, enhancing overall system stability and developer productivity"
+    ],
+    tech: ["Analytics", "Dashboard", "AI Metrics", "Refactoring", "Performance Optimization"],
+    certificate: null
+  },
+  {
     company: "Zeron",
     role: "AI Intern",
-    period: "Present",
+    period: "June 2025 – November 2025",
     focus: "Multi-agent workflows, RAG pipeline optimization, autonomous AI agents",
     achievements: [
-      "Architected 2 multi-agent workflows and 2 RAG pipelines (corrective & agent-based) that lifted retrieval accuracy from 71% → 93% using hybrid search, ranking, and MMR",
-      "Built custom MCP servers on Render and 3 LangFlow AI workflows; launched ZIN AI, an autonomous chatbot serving as single AI assistant across all Zeron client products",
-      "Presented bi-weekly demos to CTO and senior engineers—translated technical trade-offs into ROI metrics, securing production launch approval",
-      "Collaborated with cross-functional teams resulting in 30% increase in operational efficiency across projects",
-      "Spearheaded AI model research and optimization, improving model accuracy by 25% through iterative testing",
-      "Built efficient AI-powered SCP mapping with frameworks like NIST and SEBI"
+      "Architected 2 multi-agent workflows & 2 RAG (corrective and agent based) pipelines that lifted retrieval accuracy from 71% → 93% with help of mechanism like hybrid search, ranking retrieved docs and MMR",
+      "Built custom MCP servers on Render and 3 Lang Flow AI workflows and launched ZIN AI, an autonomous chatbot that now serves as the single AI assistant across all Zeron client products",
+      "Presented bi-weekly demos to CTO, senior SWE & AI engineer—translated technical trade-offs into ROI metrics"
     ],
-    tech: ["LangFlow", "RAG", "MMR", "MCP Servers", "NIST", "SEBI"]
+    tech: ["LangFlow", "RAG", "MMR", "MCP Servers", "Multi-agent Workflows"],
+    certificate: "/assests/1750518668825.pdf"
   },
   {
     company: "Stremly",
-    role: "AI Software Development Intern",
-    period: "April 14 – June 14, 2025",
+    role: "AI Software Developer Intern",
+    period: "April 2025 – June 2025",
     focus: "Web automation, AI agents, production systems",
     achievements: [
-      "Co-engineered production-grade agent-based web-automation platform with 4 interns and CTO within 8-week sprint",
-      "Refactored single-threaded prototype into 4 autonomous agents (Crawler, Extractor, Validator, Critique) leveraging Graph-RAG for DOM element pinpointing",
-      "Designed and implemented components for AI agent workflows with LLMs, vector stores, and prompt engineering",
-      "Integrated automation flows involving browser and system-level interactions using Playwright"
+      "Co-engineered production-grade, Agent based web-automation platform alongside 4 interns and CTO within 8-week",
+      "Refactored single-threaded prototype into 4 autonomous agents (Crawler, Extractor, Validator, Critique)"
     ],
-    tech: ["LangGraph", "Playwright", "LangChain", "Pinecone", "FastAPI", "Pydantic"]
+    tech: ["LangGraph", "Playwright", "LangChain", "Pinecone", "FastAPI", "Pydantic"],
+    certificate: "/assests/1768408227545.pdf"
   }
 ];
 
@@ -171,7 +180,7 @@ export const PROJECTS = [
     icon: Mic,
     tech: ["OpenAI GPT-4o", "Deepgram", "Silero VAD", "Pinecone", "LiveKit"],
     color: "#00f0ff",
-    github: "https://github.com",
+    github: "https://github.com/shivansh-2003/Candidate-ai",
     demo: "#"
   },
   {
@@ -190,7 +199,7 @@ export const PROJECTS = [
     icon: Shield,
     tech: ["Python", "Flask", "Docker", "TensorFlow", "SMOTE"],
     color: "#ff0055",
-    github: "https://github.com",
+    github: "https://github.com/shivansh-2003/Fraud_detection",
     demo: "#"
   },
   {
@@ -210,7 +219,7 @@ export const PROJECTS = [
     icon: Bot,
     tech: ["Gemini Flash 1.5", "Claude Opus", "LangGraph", "LangChain"],
     color: "#0077b5",
-    github: "https://github.com",
+    github: "https://github.com/shivansh-2003/Linkedin_blog_agent",
     demo: "#"
   },
   {
@@ -229,26 +238,27 @@ export const PROJECTS = [
     icon: Terminal,
     tech: ["FastAPI", "Groq API", "gTTS", "FPDF", "Pydantic"],
     color: "#a855f7",
-    github: "https://github.com",
+    github: "https://github.com/shivansh-2003/Story_Assistant",
     demo: "#"
   },
   {
-    title: "Ultimate Summarization API",
-    category: "Multi-format Processing",
-    description: "Comprehensive backend processing and summarizing legal docs, audio, video, and websites.",
+    title: "Workflowz.ai",
+    category: "Enterprise AI Platform",
+    description: "Intelligent multi-tenant project execution platform with AI-driven task generation and constraint-aware team assignment.",
     details: [
-      "Comprehensive backend processing and summarizing legal documents, general docs, resumes, audio, video, and websites",
-      "Legal Document Module: Document type detection, map-reduce summarization, Tavily legal context enrichment",
-      "General Documents: Dynamic strategy (short vs long), section importance scoring, configurable summaries",
-      "Resume Analysis: Structured data extraction, ATS compatibility analysis, job description comparison",
-      "Audio Processing: AssemblyAI transcription, recursive chunking, map-reduce summarization",
-      "Video Processing: YouTube and uploaded video analysis with multi-model integration",
-      "Website Processing: Async crawling via crawl4ai, customizable summary lengths, Groq Gemma2 model"
+      "Multi-tenant SaaS platform with secure RBAC and complete organizational isolation",
+      "7-agent AI workflow engine: Input Ingestion → Architecture Context → Clarification → Task Decomposition → Role Matching → Validation → Human Approval",
+      "Intelligent task generation that analyzes project requirements and automatically assigns work based on real team capabilities, workload, and seniority",
+      "Human-in-the-loop clarification: AI asks risk-based questions to eliminate implementation uncertainty before generating tasks",
+      "Capability-aware planning: Adapts scope for small teams, flags missing capabilities, avoids impossible assignments",
+      "Weighted progress tracking: High-priority tasks impact project completion more than minor ones for accurate execution visibility",
+      "Explainable assignments: Every task includes why it exists, why it was assigned to that person, and what assumptions it depends on",
+      "Multi-level hierarchy: Superuser manages organizations, Organization Heads approve AI plans and oversee projects, Team Members execute assigned tasks"
     ],
-    icon: FileText,
-    tech: ["AssemblyAI", "Crawl4AI", "Gemma2", "Tavily"],
-    color: "#22c55e",
-    github: "https://github.com",
+    icon: Layers,
+    tech: ["LangGraph", "Multi-agent AI", "FastAPI", "PostgreSQL", "JWT Auth", "RBAC"],
+    color: "#8b5cf6",
+    github: "https://github.com/shivansh-2003/Workflowz.ai",
     demo: "#"
   },
   {
@@ -267,7 +277,7 @@ export const PROJECTS = [
     icon: BarChart,
     tech: ["Streamlit", "LangChain", "Plotly", "Pandas", "GPT-4o"],
     color: "#eab308",
-    github: "https://github.com",
+    github: "https://github.com/shivansh-2003/Data-Assistant",
     demo: "#"
   }
 ];
@@ -282,7 +292,8 @@ export const HACKATHONS = [
       "Organization: Delhi Technological University (DTU)",
       "Achievement: Participated & Showcased",
       "Project: Fraud Detection System"
-    ]
+    ],
+    certificate: "/assests/certificate_Shivansh Mahajan.jpg"
   },
   { 
     name: "Hackout Hackathon", 
@@ -293,18 +304,20 @@ export const HACKATHONS = [
       "Organization: Dhirubhai Ambani University (DA-IICT)",
       "Achievement: Finalist - Top 10 out of 450 teams",
       "Project: Agriculture-based AI Project"
-    ]
+    ],
+    certificate: "/assests/00a460ec-968b-4fbb-b87f-305192fcd51e.png"
   },
   { 
-    name: "CraveFeed - Phase 2", 
+    name: "Ride Hacks Phase 2", 
     org: "JIIT Noida", 
-    project: "CraveFeed", 
+    project: "Ride Hacks", 
     result: "1st Runner-Up",
     details: [
       "Organization: JIIT Noida",
       "Achievement: 1st Runner-Up",
-      "Project: CraveFeed"
-    ]
+      "Project: Ride Hacks"
+    ],
+    certificate: null
   },
   { 
     name: "Hack The Mountains", 
@@ -315,6 +328,7 @@ export const HACKATHONS = [
       "Organization: Major League Hacking (MLH)",
       "Achievement: Selected & Participated",
       "Project: AI Meeting Platform"
-    ]
+    ],
+    certificate: "/assests/hackthemountain.jpeg"
   }
 ];
