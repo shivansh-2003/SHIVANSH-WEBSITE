@@ -122,7 +122,7 @@ export const EXPERIENCE = [
       "Presented bi-weekly demos to CTO, senior SWE & AI engineer—translated technical trade-offs into ROI metrics"
     ],
     tech: ["LangFlow", "RAG", "MMR", "MCP Servers", "Multi-agent Workflows"],
-    certificate: "/assests/1750518668825.pdf"
+    certificate: "/assets/1750518668825.pdf"
   },
   {
     company: "Stremly",
@@ -134,7 +134,7 @@ export const EXPERIENCE = [
       "Refactored single-threaded prototype into 4 autonomous agents (Crawler, Extractor, Validator, Critique)"
     ],
     tech: ["LangGraph", "Playwright", "LangChain", "Pinecone", "FastAPI", "Pydantic"],
-    certificate: "/assests/1768408227545.pdf"
+    certificate: "/assets/1768408227545.pdf"
   }
 ];
 
@@ -293,7 +293,7 @@ export const HACKATHONS = [
       "Achievement: Participated & Showcased",
       "Project: Fraud Detection System"
     ],
-    certificate: "/assests/certificate_Shivansh Mahajan.jpg"
+    certificate: "/assets/certificate_Shivansh Mahajan.jpg"
   },
   { 
     name: "Hackout Hackathon", 
@@ -305,7 +305,7 @@ export const HACKATHONS = [
       "Achievement: Finalist - Top 10 out of 450 teams",
       "Project: Agriculture-based AI Project"
     ],
-    certificate: "/assests/00a460ec-968b-4fbb-b87f-305192fcd51e.png"
+    certificate: "/assets/00a460ec-968b-4fbb-b87f-305192fcd51e.png"
   },
   { 
     name: "Ride Hacks Phase 2", 
@@ -329,6 +329,6 @@ export const HACKATHONS = [
       "Achievement: Selected & Participated",
       "Project: AI Meeting Platform"
     ],
-    certificate: "/assests/hackthemountain.jpeg"
+    certificate: "/assets/hackthemountain.jpeg"
   }
 ];
