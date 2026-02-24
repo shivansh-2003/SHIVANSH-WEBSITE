@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shivansh Mahajan – Resume</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11pt;
+      color: #111;
+      background: #f4f4f4;
+      padding: 24px 16px;
+    }
+
+    .page {
+      background: #fff;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 36px 48px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+
+    .header { text-align: center; margin-bottom: 10px; }
+
+    .header h1 {
+      font-size: 20pt;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .contact {
+      font-size: 9.5pt;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .contact a {
+      color: #1a0dab;
+      text-decoration: none;
+    }
+    .contact a:hover { text-decoration: underline; }
+
+    .sep { margin: 0 4px; color: #555; }
+
+    section { margin-top: 12px; }
+
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1.5px solid #111;
+      padding-bottom: 2px;
+      margin-bottom: 8px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .row-left { font-weight: bold; }
+    .row-right { font-size: 10pt; white-space: nowrap; }
+
+    .sub-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .sub-left { font-style: italic; }
+    .sub-right { font-size: 10pt; white-space: nowrap; }
+
+    ul {
+      list-style: disc;
+      padding-left: 18px;
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    ul li { margin-bottom: 3px; font-size: 10.5pt; }
+
+    .edu-block { margin-bottom: 4px; }
+    .job-block { margin-bottom: 8px; }
+    .project-block { margin-bottom: 10px; }
+
+    .project-name {
+      font-weight: bold;
+      text-decoration: underline;
+      color: #1a0dab;
+      font-size: 10.5pt;
+    }
+
+    .tech-stack { font-weight: bold; }
+
+    .skill-row { margin-bottom: 4px; font-size: 10.5pt; line-height: 1.45; }
+    .skill-label { font-weight: bold; }
+
+    .achievements ul { margin-bottom: 0; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { box-shadow: none; padding: 20px 32px; }
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 20px 16px; }
+      .row, .sub-row { flex-direction: column; }
+      .row-right, .sub-right { text-align: left; white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>Shivansh Mahajan</h1>
+    <p class="contact">
+      Patna, India
+      <span class="sep">|</span>
+      Phone: +91 9798940184
+      <span class="sep">|</span>
+      <a href="mailto:shivansh.m2003@gmail.com">shivansh.m2003@gmail.com</a>
+      <span class="sep">|</span>
+      <a href="https://www.linkedin.com/in/shivansh-mahajan-13227824a/" target="_blank">LinkedIn</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/shivansh-2003" target="_blank">GitHub</a>
+      <span class="sep">|</span>
+      <a href="https://leetcode.com/u/user0041EM" target="_blank">LeetCode</a>
+    </p>
+  </div>
+
+  <section>
+    <div class="section-title">Education</div>
+    <div class="edu-block">
+      <div class="row">
+        <span class="row-left">Jaypee University of Engineering Technology</span>
+        <span class="row-right">Guna, Madhya Pradesh</span>
+      </div>
+      <div class="sub-row">
+        <span class="sub-left">Bachelor of Technology (Computer Science) — Cumulative CGPA: 7.1/10</span>
+        <span class="sub-right">September 2022 – May 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Work Experience</div>
+
+    <div class="job-block">
+      <div class="row">
+        <span class="row-left">Stremly</span>
+        <span class="row-right">Remote</span>
+      </div>
+      <div class="sub-row">
+        <span class="sub-left">AI Software Developer Intern</span>
+        <span class="sub-right">April 2025 – June 2025</span>
+      </div>
+      <ul>
+        <li>Co-engineered production-grade, agent-based web-automation platform alongside 4 interns and CTO within 8 weeks.</li>
+        <li>Refactored single-threaded prototype into 4 autonomous agents (Crawler, Extractor, Validator, Critique).</li>
+      </ul>
+    </div>
+
+    <div class="job-block">
+      <div class="row">
+        <span class="row-left">Zeron</span>
+        <span class="row-right">Remote</span>
+      </div>
+      <div class="sub-row">
+        <span class="sub-left">AI Intern</span>
+        <span class="sub-right">June 2025 – November 2025</span>
+      </div>
+      <ul>
+        <li>Architected 2 multi-agent workflows & 2 RAG (corrective and agent based) pipelines that lifted retrieval accuracy from 71% → 93% via hybrid search, reranking and MMR.</li>
+        <li>Built custom MCP servers on Render and 3 LangFlow AI workflows and launched ZIN AI, an autonomous chatbot that now serves as the single AI assistant across all Zeron client products.</li>
+        <li>Presented bi-weekly demos to CTO, senior SWE & AI engineer—translating technical trade-offs into ROI metrics.</li>
+      </ul>
+    </div>
+
+    <div class="job-block">
+      <div class="row">
+        <span class="row-left">Bajaj Finserv Direct Limited</span>
+        <span class="row-right">Pune, Maharashtra</span>
+      </div>
+      <div class="sub-row">
+        <span class="sub-left">Gen-AI Intern</span>
+        <span class="sub-right">December 2025 – June 2026</span>
+      </div>
+      <ul>
+        <li><strong>Collaborated with Tech Lead</strong> to design and implement a centralized analytics dashboard for 3 major products, consolidating and visualizing 50+ AI-driven performance metrics for real-time insights and decision-making.</li>
+        <li><strong>Refactored legacy codebase</strong> to improve modularity, maintainability, and scalability; identified and resolved 30+ critical bugs, enhancing overall system stability and developer productivity.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Projects</div>
+
+    <div class="project-block">
+      <div class="project-name">Data Assistant</div>
+      <ul>
+        <li>Built advanced multi-format file ingestion supporting CSV, multi-sheet Excel, PDF table extraction and image OCR, converting real-world files into clean pandas DataFrames.</li>
+        <li>Designed a secure MCP layer with 18+ specialized tools (filter, sort, clean, group, pivot, feature engineering) for safe, deterministic data operations via natural-language commands.</li>
+        <li>Implemented InsightBot: multi-turn conversational AI (20-turn memory) that integrates with pandas code generation to provide contextual insights, statistical summaries and comparative analysis.</li>
+        <li><span class="tech-stack">Technical Stack:</span> Python 3.12, LangChain, LangGraph, FastMCP, Streamlit, OpenAI GPT-4o, Gemini 2.0 Flash, Plotly, Pandas, Redis (Upstash), FastAPI.</li>
+      </ul>
+    </div>
+
+    <div class="project-block">
+      <div class="project-name">WorkflowZ.AI</div>
+      <ul>
+        <li>Agentic AI project management platform that transforms natural-language project descriptions into realistic work plans via a 6-stage pipeline (ingestion, architecture, clarification, decomposition, matching, risk validation).</li>
+        <li>Designed secure multi-tenant backend with RBAC (Superuser, Organization Head, Member), JWT authentication, organization-scoped data isolation and comprehensive audit trails.</li>
+        <li><span class="tech-stack">Technical Stack:</span> Python 3.12, FastAPI, PostgreSQL, Streamlit, LangChain/LangGraph, OpenAI & Groq LLMs, JWT + OAuth.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="achievements">
+    <div class="section-title">Achievements</div>
+    <ul>
+      <li>Top 10 finish out of 80+ teams at Hack Out Hackathon by engineering a high-performing ML model and leading a 4-member team under strict time constraints.</li>
+      <li>Delivered a novel AI-powered solution at Ride Hacks Hackathon, leading a 6-member cross-functional team to an end-to-end prototype and earning top-5% recognition from judges.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-title">Skills</div>
+    <div class="skill-row">
+      <span class="skill-label">Tools and Software:</span>
+      Tableau, GitHub, Docker, ML Flow, GitHub Actions, LangFlow, LangSmith, Livekit, LangFuse.
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Generative AI:</span>
+      LangChain, LangGraph, Agno, Crew AI, Hugging Face, Google ADK, LlamaIndex, Guardrails.
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Cloud &amp; Databases:</span>
+      Supabase, MongoDB, Redis, Pinecone, Chroma DB, AWS (EC2, S3, SageMaker, Bedrock, Lambda).
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">AI/ML Technologies:</span>
+      Generative AI, NLP, Deep Learning, LLM Fine Tuning, RAG Techniques, MCP Protocol, A2A Protocol, Machine Learning, Data Analysis, AI Agents, LLM Observability, CI/CD.
+    </div>
+    <div class="skill-row">
+      <span class="skill-label">Python Libraries &amp; Frameworks:</span>
+      Pandas, Matplotlib, Seaborn, Scikit-learn, TensorFlow, PyTorch, FastAPI, NLTK, spaCy, Beautiful Soup, Selenium, Fast MCP, Graphiti, Crawl4AI, Plotly, Streamlit, Pydantic, Django.
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
+
