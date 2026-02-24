@@ -1,193 +1,280 @@
+import React from 'react';
+import AutoScroll from 'embla-carousel-auto-scroll';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
 
-import React, { useRef, useState, useMemo, Suspense } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Text, Environment, Float } from '@react-three/drei';
-import * as THREE from 'three';
-import { TECH_STACK_LOGOS } from '../constants';
-
-// Augment React's JSX namespace for R3F elements
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      group: any;
-      mesh: any;
-      planeGeometry: any;
-      meshPhysicalMaterial: any;
-      meshBasicMaterial: any;
-      fog: any;
-      ambientLight: any;
-      pointLight: any;
-    }
-  }
-}
-
-// Augment global JSX namespace as fallback
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      group: any;
-      mesh: any;
-      planeGeometry: any;
-      meshPhysicalMaterial: any;
-      meshBasicMaterial: any;
-      fog: any;
-      ambientLight: any;
-      pointLight: any;
-    }
-  }
-}
-
-interface LogoCardProps {
+interface TechItem {
   name: string;
-  position: [number, number, number];
-  index: number;
+  slug?: string; // Simple Icons slug (optional)
 }
 
-const LogoCard: React.FC<LogoCardProps> = ({ name, position, index }) => {
-  const ref = useRef<THREE.Group>(null);
-  const [hovered, setHover] = useState(false);
+interface CarouselRowData {
+  label: string;
+  color: string;      // border / glow color
+  textColor: string;  // badge text color
+  bgColor: string;    // badge background
+  items: TechItem[];
+  direction: 'forward' | 'backward';
+  speed: number;
+}
 
-  useFrame((state, delta) => {
-    if (ref.current) {
-      if (hovered) {
-        ref.current.scale.lerp(new THREE.Vector3(1.2, 1.2, 1.2), 0.1);
-        // Smoothly tilt a bit on hover instead of jittering
-        ref.current.rotation.z = THREE.MathUtils.lerp(ref.current.rotation.z, 0.05, 0.1);
-      } else {
-        ref.current.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
-        ref.current.rotation.z = THREE.MathUtils.lerp(ref.current.rotation.z, 0, 0.1);
-      }
-    }
-  });
+const ROWS: CarouselRowData[] = [
+  {
+    label: 'Generative AI',
+    color: '#00f3ff',
+    textColor: '#00f3ff',
+    bgColor: 'rgba(0,243,255,0.07)',
+    direction: 'forward',
+    speed: 1.1,
+    items: [
+      { name: 'LangChain',   slug: 'langchain' },
+      { name: 'LangGraph' },
+      { name: 'Agno' },
+      { name: 'Crew AI' },
+      { name: 'Hugging Face', slug: 'huggingface' },
+      { name: 'Google ADK',  slug: 'google' },
+      { name: 'LlamaIndex' },
+      { name: 'Guardrails' },
+    ],
+  },
+  {
+    label: 'Cloud & Databases',
+    color: '#bc13fe',
+    textColor: '#bc13fe',
+    bgColor: 'rgba(188,19,254,0.07)',
+    direction: 'backward',
+    speed: 1.0,
+    items: [
+      { name: 'Supabase',  slug: 'supabase' },
+      { name: 'MongoDB',   slug: 'mongodb' },
+      { name: 'Redis',     slug: 'redis' },
+      { name: 'Pinecone' },
+      { name: 'Chroma DB' },
+      { name: 'AWS EC2',   slug: 'amazonaws' },
+      { name: 'AWS S3',    slug: 'amazons3' },
+      { name: 'SageMaker', slug: 'amazonsagemaker' },
+      { name: 'Bedrock' },
+      { name: 'Lambda',    slug: 'awslambda' },
+    ],
+  },
+  {
+    label: 'Python Libraries & Frameworks',
+    color: '#f7c948',
+    textColor: '#f7c948',
+    bgColor: 'rgba(247,201,72,0.07)',
+    direction: 'forward',
+    speed: 1.3,
+    items: [
+      { name: 'Pandas',       slug: 'pandas' },
+      { name: 'Matplotlib' },
+      { name: 'Seaborn' },
+      { name: 'Scikit-learn', slug: 'scikitlearn' },
+      { name: 'TensorFlow',   slug: 'tensorflow' },
+      { name: 'PyTorch',      slug: 'pytorch' },
+      { name: 'FastAPI',      slug: 'fastapi' },
+      { name: 'NLTK' },
+      { name: 'spaCy' },
+      { name: 'Beautiful Soup' },
+      { name: 'Selenium',     slug: 'selenium' },
+      { name: 'Fast MCP' },
+      { name: 'Graphiti' },
+      { name: 'Crawl4AI' },
+      { name: 'Plotly',       slug: 'plotly' },
+      { name: 'Streamlit',    slug: 'streamlit' },
+      { name: 'Pydantic',     slug: 'pydantic' },
+      { name: 'Django',       slug: 'django' },
+    ],
+  },
+  {
+    label: 'Tools & Software',
+    color: '#39ff14',
+    textColor: '#39ff14',
+    bgColor: 'rgba(57,255,20,0.07)',
+    direction: 'backward',
+    speed: 0.9,
+    items: [
+      { name: 'Tableau',         slug: 'tableau' },
+      { name: 'GitHub',          slug: 'github' },
+      { name: 'Docker',          slug: 'docker' },
+      { name: 'MLflow',          slug: 'mlflow' },
+      { name: 'GitHub Actions',  slug: 'githubactions' },
+      { name: 'LangFlow' },
+      { name: 'LangSmith' },
+      { name: 'LiveKit' },
+      { name: 'LangFuse' },
+    ],
+  },
+];
+
+interface BadgeProps {
+  item: TechItem;
+  color: string;
+  textColor: string;
+  bgColor: string;
+}
+
+const TechBadge: React.FC<BadgeProps> = ({ item, color, textColor, bgColor }) => {
+  const [iconLoaded, setIconLoaded] = React.useState(false);
+  const [iconError, setIconError] = React.useState(false);
 
   return (
-    <group 
-      ref={ref} 
-      position={position}
-      onPointerOver={() => { document.body.style.cursor = 'pointer'; setHover(true); }}
-      onPointerOut={() => { document.body.style.cursor = 'auto'; setHover(false); }}
+    <div
+      className="group flex items-center gap-3 px-6 py-3 rounded-full border-2 transition-all duration-300 cursor-default select-none whitespace-nowrap"
+      style={{
+        borderColor: `${color}30`,
+        backgroundColor: bgColor,
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = color;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 12px ${color}40`;
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = `${color}30`;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+      }}
     >
-      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-        {/* Glass Background */}
-        <mesh position={[0, 0, 0]}>
-          <planeGeometry args={[2.8, 1.6]} />
-          <meshPhysicalMaterial
-            color={hovered ? "#2a2a2a" : "#050505"}
-            transparent
-            opacity={hovered ? 0.8 : 0.4}
-            roughness={0.2}
-            metalness={0.8}
-            side={THREE.DoubleSide}
-            emissive={hovered ? "#00f3ff" : "#000000"}
-            emissiveIntensity={hovered ? 0.2 : 0}
-          />
-        </mesh>
-        
-        {/* Border Glow */}
-        <mesh position={[0, 0, -0.01]}>
-           <planeGeometry args={[2.85, 1.65]} />
-           <meshBasicMaterial color={hovered ? "#00f3ff" : "#333"} transparent opacity={0.5} side={THREE.DoubleSide} />
-        </mesh>
-
-        {/* Text Display (No Image to avoid link errors) */}
-        <Text
-          position={[0, 0, 0.1]}
-          fontSize={0.35}
-          color={hovered ? "#00f3ff" : "white"}
-          anchorX="center"
-          anchorY="middle"
-          font="https://fonts.gstatic.com/s/rajdhani/v15/L15-2T2Vr_iN0R3dYz4.woff"
-        >
-          {name}
-        </Text>
-      </Float>
-    </group>
-  );
-};
-
-const CarouselRow: React.FC<{ direction: 'left' | 'right'; speed: number; logos: any[]; yPos: number }> = ({ direction, speed, logos, yPos }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  const CARD_WIDTH = 3.2; // Card width + gap
-  const TOTAL_WIDTH = logos.length * CARD_WIDTH;
-  
-  // Create 3 sets of logos for seamless infinite scrolling
-  const displayLogos = useMemo(() => [...logos, ...logos, ...logos], [logos]);
-
-  useFrame((state, delta) => {
-    if (groupRef.current) {
-      const moveSpeed = speed * (1 + Math.abs(state.pointer.x) * 0.5); // Speed up slightly on edges
-      
-      if (direction === 'left') {
-        groupRef.current.position.x -= moveSpeed * delta;
-        if (groupRef.current.position.x <= -TOTAL_WIDTH) {
-          groupRef.current.position.x = 0;
-        }
-      } else {
-        groupRef.current.position.x += moveSpeed * delta;
-        if (groupRef.current.position.x >= 0) {
-          groupRef.current.position.x = -TOTAL_WIDTH;
-        }
-      }
-    }
-  });
-
-  return (
-    <group ref={groupRef} position={[direction === 'left' ? 0 : -TOTAL_WIDTH, yPos, 0]}>
-      {displayLogos.map((logo, i) => (
-        <LogoCard
-          key={`${logo.slug}-${i}`}
-          name={logo.name}
-          position={[i * CARD_WIDTH, 0, 0]}
-          index={i}
+      {item.slug && !iconError && (
+        <img
+          src={`https://cdn.simpleicons.org/${item.slug}/ffffff`}
+          alt=""
+          className="w-6 h-6 object-contain shrink-0"
+          style={{ opacity: iconLoaded ? 0.85 : 0 }}
+          onLoad={() => setIconLoaded(true)}
+          onError={() => setIconError(true)}
         />
-      ))}
-    </group>
+      )}
+      {(!item.slug || iconError) && (
+        <div
+          className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0"
+          style={{ backgroundColor: `${color}20`, color: textColor }}
+        >
+          {item.name.charAt(0)}
+        </div>
+      )}
+      <span
+        className="text-sm font-mono font-medium tracking-wide transition-colors duration-300"
+        style={{ color: textColor }}
+      >
+        {item.name}
+      </span>
+    </div>
   );
 };
+
+interface RowProps {
+  row: CarouselRowData;
+}
+
+const CarouselRow: React.FC<RowProps> = ({ row }) => (
+  <div className="relative mb-4">
+    <Carousel
+      opts={{ loop: true }}
+      plugins={[
+        AutoScroll({
+          playOnInit: true,
+          speed: row.speed,
+          direction: row.direction,
+          stopOnInteraction: false,
+          stopOnMouseEnter: true,
+        }),
+      ]}
+    >
+      <CarouselContent className="ml-0">
+        {row.items.map((item, i) => (
+          <CarouselItem key={`${item.name}-${i}`} className="basis-auto pl-0 pr-3">
+            <TechBadge
+              item={item}
+              color={row.color}
+              textColor={row.textColor}
+              bgColor={row.bgColor}
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+    {/* Fade edges */}
+    <div
+      className="absolute inset-y-0 left-0 w-16 md:w-24 z-10 pointer-events-none"
+      style={{ background: `linear-gradient(to right, #050505, transparent)` }}
+    />
+    <div
+      className="absolute inset-y-0 right-0 w-16 md:w-24 z-10 pointer-events-none"
+      style={{ background: `linear-gradient(to left, #050505, transparent)` }}
+    />
+  </div>
+);
 
 export const TechStackCarousel: React.FC = () => {
-  // Split logos into two rows
-  const mid = Math.ceil(TECH_STACK_LOGOS.length / 2);
-  const row1 = TECH_STACK_LOGOS.slice(0, mid);
-  const row2 = TECH_STACK_LOGOS.slice(mid);
+  const flatItems = React.useMemo(
+    () =>
+      ROWS.flatMap((row) =>
+        row.items.map((item) => ({
+          item,
+          color: row.color,
+          textColor: row.textColor,
+          bgColor: row.bgColor,
+        })),
+      ),
+    [],
+  );
+
+  const loopItems = React.useMemo(() => {
+    // Duplicate items to avoid visible gaps on loop.
+    return [...flatItems, ...flatItems, ...flatItems];
+  }, [flatItems]);
 
   return (
-    <div className="w-full h-[500px] relative overflow-hidden">
-      {/* Floating Title */}
-      <div className="absolute top-10 left-0 right-0 text-center z-10 pointer-events-none">
-        <h3 className="text-4xl md:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-neonCyan to-neonPurple opacity-90 drop-shadow-[0_0_15px_rgba(0,243,255,0.3)]">
-           MY GENERATIVE AI & <br/> FULL-STACK ARSENAL
-        </h3>
-      </div>
+    <div className="relative z-20 overflow-hidden py-10">
+      {/* Ambient background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 50% at 50% 50%, rgba(0,243,255,0.08) 0%, transparent 70%)',
+        }}
+      />
 
-      <Canvas camera={{ position: [0, 0, 10], fov: 40 }} dpr={[1, 2]}>
-        <fog attach="fog" args={['#050505', 5, 20]} />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#00f3ff" />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="#bc13fe" />
-        
-        <Environment preset="city" />
+      <Carousel
+        opts={{ loop: true }}
+        plugins={[
+          AutoScroll({
+            playOnInit: true,
+            speed: 1.2,
+            direction: 'forward',
+            stopOnInteraction: false,
+            stopOnMouseEnter: true,
+          }),
+        ]}
+      >
+        <CarouselContent className="!ml-0 flex items-center py-4">
+          {loopItems.map((entry, index) => (
+            <CarouselItem
+              key={`${entry.item.name}-${index}`}
+              className="!basis-auto !pl-0 pr-6 py-2"
+            >
+              <TechBadge
+                item={entry.item}
+                color={entry.color}
+                textColor={entry.textColor}
+                bgColor={entry.bgColor}
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
-        <Suspense fallback={null}>
-          <group position={[0, 1, 0]} rotation={[0.1, 0, 0]}>
-             <CarouselRow direction="left" speed={2} logos={row1} yPos={1.2} />
-          </group>
-          
-          <group position={[0, -1.5, 0]} rotation={[-0.1, 0, 0]}>
-             <CarouselRow direction="right" speed={2} logos={row2} yPos={-1.2} />
-          </group>
-        </Suspense>
-
-        {/* Particles/Sparkles for atmosphere */}
-        <mesh position={[0,0,-5]}>
-           <planeGeometry args={[50, 50]} />
-           <meshBasicMaterial color="#000" transparent opacity={0.8} side={THREE.DoubleSide} />
-        </mesh>
-      </Canvas>
-      
-      {/* Overlay gradients for smooth fade edges */}
-      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
+      {/* Fade edges */}
+      <div
+        className="absolute inset-y-0 left-0 w-16 md:w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to right, #050505, transparent)' }}
+      />
+      <div
+        className="absolute inset-y-0 right-0 w-16 md:w-24 z-10 pointer-events-none"
+        style={{ background: 'linear-gradient(to left, #050505, transparent)' }}
+      />
     </div>
   );
 };

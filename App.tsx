@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Scene } from './components/Scene';
 import { Section, GlassCard, CustomButton, Modal } from './components/UI';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { CustomCursor } from './components/CustomCursor';
 import { Hero } from './components/Hero';
+import { TechStackCarousel } from './components/TechStackCarousel';
 import { PROJECTS, EXPERIENCE, EDUCATION, SKILLS, SOCIALS, HACKATHONS } from './constants';
 import { 
   Github, 
@@ -15,6 +16,7 @@ import {
   Calendar,
   ChevronDown, 
   ExternalLink, 
+  Eye,
   Code, 
   Terminal, 
   Trophy,
@@ -34,6 +36,19 @@ const App: React.FC = () => {
     damping: 30,
     restDelta: 0.001
   });
+
+  const navSections = useMemo(
+    () =>
+      [
+        { id: 'experience', label: 'Experience' },
+        { id: 'projects', label: 'Projects' },
+        { id: 'skills', label: 'Skills' },
+        { id: 'contact', label: 'Contact' },
+      ] as const,
+    [],
+  );
+
+  const [activeSection, setActiveSection] = useState<(typeof navSections)[number]['id']>('experience');
 
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,9 +80,46 @@ const App: React.FC = () => {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
+      if (navSections.some((s) => s.id === id)) {
+        setActiveSection(id as (typeof navSections)[number]['id']);
+      }
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    const elements = navSections
+      .map((s) => document.getElementById(s.id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const focusY = window.innerHeight * 0.4;
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length === 0) return;
+
+        visible.sort((a, b) => {
+          const aCenter = a.boundingClientRect.top + a.boundingClientRect.height / 2;
+          const bCenter = b.boundingClientRect.top + b.boundingClientRect.height / 2;
+          return Math.abs(aCenter - focusY) - Math.abs(bCenter - focusY);
+        });
+
+        setActiveSection(visible[0].target.id as (typeof navSections)[number]['id']);
+      },
+      {
+        // Consider a section "active" when it's around the middle of viewport
+        root: null,
+        threshold: [0, 0.1, 0.2, 0.35],
+        // Wider active band so it updates as soon as you enter a section
+        rootMargin: '-20% 0px -60% 0px',
+      },
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [navSections]);
 
   return (
     <div className="relative w-full bg-[#050505] text-white font-sans selection:bg-neonCyan selection:text-black">
@@ -96,19 +148,42 @@ const App: React.FC = () => {
         </motion.div>
         
         <div className="hidden md:flex gap-8 glass-panel px-8 py-3 rounded-full">
-          {['Experience', 'Projects', 'Skills'].map((item) => (
+          {navSections.filter((s) => s.id !== 'contact').map((s) => {
+            const isActive = activeSection === s.id;
+            return (
             <button
-              key={item}
-              onClick={() => scrollTo(item.toLowerCase())}
-              className="font-sans text-sm uppercase tracking-widest hover:text-neonCyan transition-colors relative group"
+              key={s.id}
+              onClick={() => scrollTo(s.id)}
+              className={`font-sans text-sm uppercase tracking-widest transition-colors relative group ${
+                isActive ? 'text-neonCyan' : 'hover:text-neonCyan'
+              }`}
             >
-              {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-neonCyan transition-all duration-300 group-hover:w-full" />
+              {s.label}
+              <span
+                className={`absolute -bottom-1 left-0 h-0.5 bg-neonCyan transition-all duration-300 ${
+                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}
+              />
             </button>
-          ))}
-          <button onClick={() => scrollTo('contact')} className="font-sans text-sm uppercase tracking-widest text-neonPurple hover:text-white transition-colors">
-            Contact
-          </button>
+          )})}
+          {(() => {
+            const isActive = activeSection === 'contact';
+            return (
+              <button
+                onClick={() => scrollTo('contact')}
+                className={`font-sans text-sm uppercase tracking-widest transition-colors relative group ${
+                  isActive ? 'text-white' : 'text-neonPurple hover:text-white'
+                }`}
+              >
+                Contact
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-neonPurple transition-all duration-300 ${
+                    isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                />
+              </button>
+            );
+          })()}
         </div>
 
         <div className="flex gap-4">
@@ -201,6 +276,10 @@ const App: React.FC = () => {
                    </div>
                 </GlassCard>
               ))}
+           </div>
+
+           <div className="mt-12">
+             <TechStackCarousel />
            </div>
          </div>
       </Section>
@@ -331,10 +410,10 @@ const App: React.FC = () => {
                 I'm always looking for new challenges in Generative AI and Agents. Whether you have a question or just want to say hi, I'll try my best to get back to you!
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12 w-full px-2 flex-wrap">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12 w-full max-w-2xl mx-auto px-2">
                  <a 
                    href={`mailto:${SOCIALS.email}`}
-                   className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg hover:bg-neonCyan hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300 w-full sm:w-auto justify-center"
+                   className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-white text-black font-bold text-base sm:text-lg hover:bg-neonCyan hover:shadow-[0_0_30px_rgba(0,243,255,0.5)] transition-all duration-300 w-full justify-center"
                  >
                    <Mail size={18} className="sm:w-5 sm:h-5" />
                    Say Hello
@@ -343,16 +422,25 @@ const App: React.FC = () => {
                   href="https://calendly.com/shivansh-m2003"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-neonPurple/20 border border-neonPurple/50 text-white font-bold text-base sm:text-lg hover:bg-neonPurple/30 hover:border-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full sm:w-auto justify-center"
+                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-neonPurple/20 border border-neonPurple/50 text-white font-bold text-base sm:text-lg hover:bg-neonPurple/30 hover:border-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full justify-center"
                 >
                   <Calendar size={18} className="sm:w-5 sm:h-5" />
                   Schedule a meet
                 </a>
                 <a 
+                  href="/resume.html"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-transparent border border-white/30 text-white font-bold text-base sm:text-lg hover:border-neonCyan hover:text-neonCyan hover:shadow-[0_0_30px_rgba(0,243,255,0.3)] transition-all duration-300 w-full justify-center"
+                >
+                  <Eye size={18} className="sm:w-5 sm:h-5" />
+                  View Resume
+                </a>
+                <a 
                   href="https://drive.google.com/file/d/1rq7_MpBlIICDnq17Gkhbb6rRDfG8DM-y/view?usp=sharing"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-black border border-white/20 text-white font-bold text-base sm:text-lg hover:border-neonPurple hover:text-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full sm:w-auto justify-center"
+                  className="flex items-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 rounded-full bg-black border border-white/20 text-white font-bold text-base sm:text-lg hover:border-neonPurple hover:text-neonPurple hover:shadow-[0_0_30px_rgba(188,19,254,0.3)] transition-all duration-300 w-full justify-center"
                 >
                   <Download size={18} className="sm:w-5 sm:h-5" />
                   Download CV
